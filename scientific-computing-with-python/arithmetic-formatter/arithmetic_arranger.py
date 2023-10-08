@@ -1,8 +1,7 @@
 def arithmetic_arranger(strings, solver="False"):
   operators = "+-"
   if len(strings) > 5:
-    print("Error: Too many problems.")
-    return
+    return "Error: Too many problems."
 
   fir_nums = []
   oper = []
@@ -17,55 +16,60 @@ def arithmetic_arranger(strings, solver="False"):
 
   for num in all_nums:
     if not str(num).isdigit():
-        print("Error: Numbers must only contain digits.")
-        return
+      return "Error: Numbers must only contain digits."
 
     if len(str(num)) > 4:
-        print("Error: Numbers cannot be more than four digits.")
-        return
+      return "Error: Numbers cannot be more than four digits."
 
   for op in oper:
     if op not in operators:
-      print("Error: Operator must be '+' or '-'.")
-      return
+      return "Error: Operator must be '+' or '-'."
 
   tab = []
-  
+
   for i in range(len(fir_nums)):
     tab.append(max(len(fir_nums[i]) + 2, len(sec_nums[i]) + 2))
 
+  ar_for = ""
   i = 0
+
   for num in fir_nums:
     if len(num) < tab[i]:
-      print((tab[i] - len(num)) * " ", end="")
-    print(num, end= 4 * " ")
+      ar_for += (tab[i] - len(num)) * " "
+    ar_for += str(num) + 4 * " "
     i += 1
-  
-  print("")
-  
+
+  ar_for = ar_for[:-4]
+  ar_for += "\n"
   i = 0
+
   for num in sec_nums:
     if len(num) + 2 < tab[i]:
-      print(oper[i] + ((tab[i] - len(num)) - 2) * " " , end=" ")
+      ar_for += oper[i] + ((tab[i] - len(num)) - 2) * " " + " "
     else:
-      print(oper[i], end=" ")
-    print(num, end= 4 * " ")
+      ar_for += oper[i] + " "
+    ar_for += str(num) + 4 * " "
     i += 1
 
-  print("")
+  ar_for = ar_for[:-4]
+  ar_for += "\n"
 
   for i in tab:
-    print(i * "-", end=4 * " ")
+    ar_for += (i * "-") + 4 * " "
 
-  print("")
+  ar_for = ar_for[:-4]
+  ar_for += "\n"
 
-  if solver == True:
+  if solver is True:
     for i in range(len(fir_nums)):
       if oper[i] == '+':
         calc = int(fir_nums[i]) + int(sec_nums[i])
       elif oper[i] == '-':
         calc = int(fir_nums[i]) - int(sec_nums[i])
       if len(str(calc)) < tab[i]:
-        print( (tab[i] - len(str(calc))) * " ", end="")
-      print(calc, end= 4 * " ")
-    
+        ar_for += (tab[i] - len(str(calc))) * " "
+      ar_for += str(calc) + 4 * " "
+    ar_for = ar_for[:-4]
+
+  return ar_for.rstrip()
+
