@@ -1,5 +1,6 @@
 def add_time(start_time, duration_time, day="False"):
-  week = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+  week = ("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday",
+          "Sunday")
   full_time = ""
   later = 0
 
@@ -36,23 +37,20 @@ def add_time(start_time, duration_time, day="False"):
       elif st_ind == "AM":
         st_ind = "PM"
 
-  if st_h < 10:
-    full_time += '0'
   full_time += str(st_h) + ':'
   if st_m < 10:
     full_time += '0'
   full_time += str(st_m) + ' ' + str(st_ind)
 
-  idx = 0
-
   if day != "False":
-    while (week[idx] != day.capitalize()):
-      idx += 1
-    for i in range(later):
-      if idx == 7:
-        idx = 0
-      idx += 1
-    full_time += ", " + week[idx]
+    day = day.capitalize()  # Capitalize the input day
+    if day in week:
+      idx = week.index(day)
+      for i in range(later):
+        idx += 1
+        if idx == 7:
+          idx = 0
+      full_time += ", " + week[idx]
 
   if later == 1:
     full_time += " (next day)"
